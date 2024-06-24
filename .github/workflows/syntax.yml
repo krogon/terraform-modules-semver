@@ -1,0 +1,28 @@
+name: 'Syntax'
+
+on:
+  pull_request:
+
+jobs:
+  changed:
+    uses: ./.github/workflows/changed.yml
+    secrets: inherit
+    permissions:
+      pull-requests: read
+  syntax:
+    name: "Release ${{ matrix.name }}"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    needs: [changed]
+    strategy:
+      matrix:
+        include: "${{ fromJSON(needs.changed.outputs.matrix) }}"
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.1
+      - name: Terraform Format
+        run: terraform fmt -diff -check

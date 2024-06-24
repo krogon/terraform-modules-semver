@@ -1,0 +1,17 @@
+name: Enforce Label
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, edited, synchronize]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: docker://agilepathway/pull-request-label-checker:v1.6.44
+        with:
+          one_of: major,minor,patch
+          none_of: "do not merge"
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
