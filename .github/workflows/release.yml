@@ -26,9 +26,10 @@ jobs:
     steps:
       - name: Tag
         id: tag
-        uses: krogon/semver-release-action@v2.1.0
+        uses: krogon/semver-release-action@v2.2.0
         with:
           release_branch: main
-          tag_format: '${{ matrix.name }}-v%major%.%minor%.%patch%'
+          tag_format: 'v%major%.%minor%.%patch%'
+          tag_prefix: '${{ matrix.name }}-'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
