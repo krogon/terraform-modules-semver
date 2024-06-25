@@ -10,7 +10,7 @@ jobs:
     permissions:
       pull-requests: read
   syntax:
-    name: "Release ${{ matrix.name }}"
+    name: "Syntax ${{ matrix.name }}"
     runs-on: ubuntu-latest
     permissions:
       contents: read
