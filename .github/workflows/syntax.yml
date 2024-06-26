@@ -26,3 +26,4 @@ jobs:
         uses: hashicorp/setup-terraform@v3.1.1
       - name: Terraform Format
         run: terraform fmt -diff -check
+        working-directory: "${{ matrix.path }}"
